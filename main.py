@@ -16,13 +16,20 @@ def main():
     #hex(autopy.bitmap.capture_screen().get_color(1, 1)) #get capture color
     
     MAX_CAPTURE_INDEX = 1000
-    CAPTURE_SLEEP_TIME = 1.0
+    FRAMES_PER_SECOND = 5.0
+    CAPTURE_SLEEP_TIME = 1.0/FRAMES_PER_SECOND        #in seconds
     
     for capture_index in range(MAX_CAPTURE_INDEX):
+        time_now = time.time()
+        
         image = autopy.bitmap.capture_screen()
         rgb = get_rgb(image, 300, 300)
+        
         print capture_index, float(capture_index)/MAX_CAPTURE_INDEX, rgb
-        time.sleep(CAPTURE_SLEEP_TIME)
+        
+        time_elapsed = time.time() - time_now
+        print time_elapsed, (CAPTURE_SLEEP_TIME - time_elapsed)
+        time.sleep(CAPTURE_SLEEP_TIME - time_elapsed)
 #END def main():
 ###############################################################################
 
